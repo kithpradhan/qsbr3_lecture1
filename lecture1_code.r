@@ -1,5 +1,6 @@
 library(GEOquery) 
 
+
 # load data
 
 dat <- getGEO("GSE7148")		# does this work for you?
