@@ -33,6 +33,7 @@ t.test(edat[1,lonely.index=="HighLonely"], edat[1,lonely.index=="LowLonely"])
 runTP <- function(x,y){ t.test(x[y=="HighLonely"], x[y=="LowLonely"])$p.value}
 
 tpvals <- apply(edat, 1, runTP, y=lonely.index)
+hist(tpvals)
 summary(tpvals)
 
 # adjust for multiple testing
@@ -51,13 +52,13 @@ plot(fch, logp, pch=1, xlab="Log2(L/S)", ylab="-Log10(Pval)", main="Volcano Plot
 
 abline(v=c(-1,1), col="red", lwd=3, lty=2)
 
+
 # run limma analysis
 
 library(limma)
 
 lonely.index <- as.factor(lonely.index)
 
-design1 <- model.matrix(~lonely.index)
 design <- model.matrix(~0+lonely.index)
 colnames(design) <- levels(lonely.index)
 fit <- lmFit(es, design)
